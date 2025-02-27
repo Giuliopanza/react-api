@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react';
 
+import axios from 'axios';
+
 function App() {
   
-  const [characters, setCharacters] = useState([]);
+  const [posts, setPosts] = useState([]);
 
-  const fetchCharacters = () => {
-    fetch('http://localhost:3000/api/posts')
-      .then((res) => res.json())
-      .then((data) => setCharacters(data.results))
-      .catch((err) => console.error(err));
-  };
+  const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
-  useEffect(fetchCharacters, []);
+  function fetchPosts() {
+    axios.get(apiUrl).then((res) => setPosts(res.data));
+  }
+
+  useEffect(fetchPosts, []);
 
   return (
     <>
       <div className="container">
         <div className="row row-cols-4">
-          {characters.map((elem) => {
+          {posts.map((elem) => {
             return (
               <div className="" key={elem.id}>
                 <div className="card">
