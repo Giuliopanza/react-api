@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
-
 import axios from 'axios';
+
+import { useEffect, useState } from 'react';
 
 function App() {
   
   const [posts, setPosts] = useState([]);
 
-  const apiUrl = import.meta.env.VITE_BASE_API_URL;
+  const apiUrl = 'http://localhost:3000/api/posts';
 
   function fetchPosts() {
-    axios.get(apiUrl).then((res) => setPosts(res.data));
+    axios.get(apiUrl)
+    .then((res) => setPosts(res.data))
+    .catch(err => console.error(err) )
   }
 
   useEffect(fetchPosts, []);
